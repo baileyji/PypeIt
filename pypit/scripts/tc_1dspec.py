@@ -82,7 +82,6 @@ def tcorrect_data(fscale, data, tran, original):
     Returns
     -------
     """
-    #from pkg_resources import resource_filename
     import matplotlib.pyplot as plt
 
     template = arutils.get_atm_template(fscale, tran[:,1])
