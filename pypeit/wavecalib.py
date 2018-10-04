@@ -147,6 +147,9 @@ class WaveCalib(masterframe.MasterFrame):
                 arc.arc_fit_qa(self.setup, self.wv_calib[str(slit)], slit, out_dir=self.redux_path)
         # Step
         self.steps.append(inspect.stack()[0][3])
+        from IPython import embed
+        embed()
+
         # Return
         return self.wv_calib
 
