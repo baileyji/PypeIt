@@ -615,6 +615,8 @@ def simple_calib_driver(msarc, aparm, censpec, ok_mask, nfitpix=5, get_poly=Fals
         iwv_calib = simple_calib(msarc, aparm, censpec[:, slit], nfitpix=nfitpix,
                                  get_poly=get_poly, IDpixels=IDpixels, IDwaves=IDwaves)
         wv_calib[str(slit)] = iwv_calib.copy()
+    from IPython import embed
+    embed()
     return wv_calib
 
 
