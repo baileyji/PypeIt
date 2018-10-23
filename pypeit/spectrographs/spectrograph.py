@@ -17,6 +17,7 @@ from pypeit import msgs
 from pypeit.core import parse
 from pypeit.par import pypeitpar
 
+from pypeit import debugger
 
 # TODO: Consider changing the name of this to Instrument
 class Spectrograph(object):

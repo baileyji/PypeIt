@@ -178,7 +178,7 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
             head0: Header
 
         """
-        raw_img, head0, _, _ = read_kcwi(raw_file, det=det)
+        raw_img, head0, _, _ = read_kcwi(raw_file)
 
         return raw_img, head0
 
@@ -218,7 +218,7 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
             their order transposed.
         """
         # Read the file
-        temp, head0, secs, direc = read_kcwi(filename, det)
+        temp, head0, secs, direc = read_kcwi(filename)
         if section == 'datasec':
             return secs[0], False, False, False
         elif section == 'oscansec':
@@ -325,6 +325,25 @@ class KeckKCWIBSpectrograph(KeckKCWISpectrograph):
         hdr_keys = super(KeckKCWIBSpectrograph, self).header_keys()
         return hdr_keys
 
+    def bpm(self, filename=None, det=None, **null_kwargs):
+        """ Generate a BPM
+
+        Parameters
+        ----------
+        det : int, REQUIRED
+        **null_kwargs:
+           Captured and never used
+
+        Returns
+        -------
+        badpix : ndarray
+
+        """
+        # Get the empty bpm: force is always True
+        self.empty_bpm(filename=filename, det=det)
+
+        return self.bpm_img
+
 
 '''
 def bpm(slf, camera, fitsdict, det):
@@ -356,10 +375,16 @@ def read_kcwi(raw_file):
     head0 = hdu[0].header
 
     # Grab the sections
-    bsec, dsec, tsec, direc = map_ccd(head0)
+    ibsec, idsec, tsec, direc = map_ccd(head0)
 
     # Use em
     data = hdu[0].data.astype(float)
+
+    # Turn dsec into IRAF format but with Python indexing
+    bsec, dsec = [], []
+    for kk, iidsec in enumerate(idsec):
+        dsec.append('[{}:{},{}:{}]'.format(iidsec[0], iidsec[1], iidsec[2], iidsec[3]))
+        bsec.append('[{}:{},{}:{}]'.format(ibsec[kk][0], ibsec[kk][1], ibsec[kk][2], ibsec[kk][3]))
 
     # Return
     return data, head0, (dsec, bsec), direc
@@ -410,9 +435,9 @@ def map_ccd(header):
     direc = []
     # loop over amps
     for i in range(namps):
-        sec, rfor = parse_imsec(section_key='BSEC%d' % (i+1))
+        sec, rfor = parse_imsec(header, section_key='BSEC%d' % (i+1))
         bsec.append(sec)
-        sec, rfor = parse_imsec(section_key='DSEC%d' % (i+1))
+        sec, rfor = parse_imsec(header, section_key='DSEC%d' % (i+1))
         dsec.append(sec)
         direc.append(rfor)
         if i == 0:
