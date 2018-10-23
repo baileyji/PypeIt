@@ -982,7 +982,8 @@ class ReducePar(ParSet):
         return ['gemini_gnirs','keck_deimos', 'keck_lris_blue', 'keck_lris_red', 'keck_nires', 'keck_nirspec',
                 'shane_kast_blue', 'shane_kast_red', 'shane_kast_red_ret', 'tng_dolores',
                 'wht_isis_blue', 'vlt_xshooter_uvb', 'vlt_xshooter_vis', 
-                'vlt_xshooter_nir', 'gemini_gmos_south', 'gemini_gmos_north_e2v', 'gemini_gmos_north_ham']
+                'vlt_xshooter_nir', 'gemini_gmos_south', 'gemini_gmos_north_e2v', 'gemini_gmos_north_ham',
+                'keck_kcwi_blue']
 
     def validate(self):
         pass
