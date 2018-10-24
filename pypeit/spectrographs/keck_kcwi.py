@@ -74,22 +74,24 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
         hdr_keys[0]['idname'] = 'IMTYPE'
         hdr_keys[0]['time'] = 'MJD'
         #hdr_keys[0]['date'] = 'DATE'
-        hdr_keys[0]['utc'] = 'UTC'
+        #hdr_keys[0]['utc'] = 'UTC'
         hdr_keys[0]['ut'] = 'UT'
         hdr_keys[0]['ra'] = 'RA'
         hdr_keys[0]['dec'] = 'DEC'
         hdr_keys[0]['airmass'] = 'AIRMASS'
         hdr_keys[0]['binning'] = 'BINNING'
-        hdr_keys[0]['decker'] = 'SLITNAME'
+        #hdr_keys[0]['decker'] = 'SLITNAME'
         hdr_keys[0]['dichroic'] = 'DICHNAME'
 
         hdr_keys[0]['target'] = 'TARGNAME'
         hdr_keys[0]['exptime'] = 'TTIME'
-        hdr_keys[0]['hatch'] = 'TRAPDOOR'
-        hdr_keys[0]['dispname'] = 'GRANAME'
-        hdr_keys[0]['dispangle'] = 'GRANGLE'
-        hdr_keys[0]['wavecen'] = 'WAVELEN'
+        #hdr_keys[0]['hatch'] = 'TRAPDOOR'
+        hdr_keys[0]['dispname'] = 'BGRATNAM'
+        hdr_keys[0]['dispangle'] = 'BGRANGLE'
+        hdr_keys[0]['wavecen'] = 'BCWAVE'
         hdr_keys[0]['spectrograph'] = 'INSTRUME'
+        hdr_keys[0]['slicer'] = 'IFUNUM'
+        hdr_keys[0]['stateid'] = 'STATEID'
         #hdr_keys[1]['CCDGEOM'] = 'CCDGEOM'
         #hdr_keys[1]['CCDNAME01'] = 'CCDNAME'
         #hdr_keys[3]['CCDNAME02'] = 'CCDNAME'
@@ -103,7 +105,7 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
 
     def metadata_keys(self):
         return super(KeckKCWISpectrograph, self).metadata_keys() \
-                    + ['binning', 'dichroic', 'dispangle']
+                    + ['binning', 'dispangle', 'stateid']
 
     def check_frame_type(self, ftype, fitstbl, exprng=None):
         """
@@ -234,7 +236,7 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
         """
         # Cannot be determined without file
         if filename is None:
-            raise ValueError('Must provide a file to determine the shape of an LRIS image.')
+            raise ValueError('Must provide a file to determine the shape of a KCWI image.')
 
         # Use a file
         self._check_detector()
@@ -247,10 +249,11 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
             match_criteria[key] = {}
         #
         match_criteria['standard']['match'] = {}
-        match_criteria['standard']['match']['dispname'] = ''
-        match_criteria['standard']['match']['dichroic'] = ''
-        match_criteria['standard']['match']['binning'] = ''
-        match_criteria['standard']['match']['decker'] = ''
+        match_criteria['standard']['match']['stateid'] = ''
+        #match_criteria['standard']['match']['dichroic'] = ''
+        #match_criteria['standard']['match']['binning'] = ''
+        #match_criteria['standard']['match']['slicer'] = ''
+        #match_criteria['standard']['match']['decker'] = ''
         # Bias
         match_criteria['bias']['match'] = {}
         match_criteria['bias']['match']['binning'] = ''
@@ -273,7 +276,7 @@ class KeckKCWIBSpectrograph(KeckKCWISpectrograph):
         # Get it started
         super(KeckKCWIBSpectrograph, self).__init__()
         self.spectrograph = 'keck_kcwi_blue'
-        self.camera = 'LRISb'
+        self.camera = 'BLUE'
         self.detector = [
                 # Detector 1
                 pypeitpar.DetectorPar(
@@ -304,7 +307,7 @@ class KeckKCWIBSpectrograph(KeckKCWISpectrograph):
         Set default parameters for Keck LRISr reductions.
         """
         par = KeckKCWISpectrograph.default_pypeit_par()
-        par['rdx']['spectrograph'] = 'keck_lris_blue'
+        par['rdx']['spectrograph'] = 'keck_kcwi_blue'
         return par
 
     def check_headers(self, headers):
