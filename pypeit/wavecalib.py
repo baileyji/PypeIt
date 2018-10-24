@@ -191,6 +191,9 @@ class WaveCalib(masterframe.MasterFrame):
                 arc.arc_fit_qa(self.wv_calib[str(slit)], outfile)
         # Step
         self.steps.append(inspect.stack()[0][3])
+        from IPython import embed
+        embed()
+
         # Return
         return self.wv_calib
 
