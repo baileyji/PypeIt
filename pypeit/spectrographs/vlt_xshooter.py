@@ -314,8 +314,8 @@ class VLTXShooterVISSpectrograph(VLTXShooterSpectrograph):
                             numamplifiers   = 1,
                             gain            = 0.595,
                             ronoise         = 3.1,
-                            datasec         = '[1:2000,10:2058]',
-                            oscansec        = '[1:2000, 2060:2106]',
+                            datasec         = '[1:2050,:]',
+                            oscansec        = '[2060:2105,:]',
                             suffix          = '_VIS'
                             )]
         self.numhead = 1
