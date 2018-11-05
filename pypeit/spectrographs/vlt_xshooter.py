@@ -314,8 +314,12 @@ class VLTXShooterVISSpectrograph(VLTXShooterSpectrograph):
                             numamplifiers   = 1,
                             gain            = 0.595,
                             ronoise         = 3.1,
-                            datasec         = '[1:2050,:]',
-                            oscansec        = '[2060:2105,:]',
+                            # OLD
+                            # datasec  = '[1:2000,10:2058]',
+                            # oscansec = '[1:2000, 2060:2106]',
+                            # NEW
+                            datasec         = '[15:2015,1:]',
+                            oscansec        = '[2065:2100,1:]',
                             suffix          = '_VIS'
                             )]
         self.numhead = 1
@@ -329,6 +333,7 @@ class VLTXShooterVISSpectrograph(VLTXShooterSpectrograph):
         par['rdx']['spectrograph'] = 'vlt_xshooter_vis'
 
         # Adjustments to slit and tilts for VIS
+        # OLD
         par['calibrations']['arcframe']['process']['overscan'] = 'median'
         par['calibrations']['traceframe']['process']['overscan'] = 'median'
         par['calibrations']['slits']['sigdetect'] = 2.0
@@ -341,6 +346,19 @@ class VLTXShooterVISSpectrograph(VLTXShooterSpectrograph):
         par['calibrations']['tilts']['tracethresh'] = [ 20., 100., 100., 100., 100., 100., 100.,
                                                        100., 500., 500., 500., 500., 500., 500.,
                                                        500.]
+
+        '''
+        # NEW
+        par['calibrations']['slits']['sigdetect'] = 1.0
+        par['calibrations']['slits']['polyorder'] = 5
+        par['calibrations']['slits']['maxshift'] = 0.5
+        par['calibrations']['slits']['pcatype'] = 'order'
+        par['calibrations']['slits']['fracignore'] = 0.0001
+        par['calibrations']['slits']['number'] = 15
+        # par['calibrations']['tilts']['tracethresh'] = [ 20., 100., 100., 100., 100., 100., 100.,
+        #                                               100., 500., 500., 500., 500., 500., 500.,
+        #                                               500.]
+        '''
 
 #       par['calibrations']['slits']['pcapar'] = [3,2,1,0]
 
