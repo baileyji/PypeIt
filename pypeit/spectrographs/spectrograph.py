@@ -379,6 +379,7 @@ class Spectrograph(object):
     def metadata_keys(self):
         return ['filename', 'date', 'frametype', 'target', 'exptime', 'dispname', 'decker']
 
+
     def get_headarr(self, filename, strict=True):
         """
         Read the header data from all the extensions in the file.

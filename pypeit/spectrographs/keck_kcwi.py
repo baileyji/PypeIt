@@ -81,7 +81,7 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
         hdr_keys[0]['airmass'] = 'AIRMASS'
         hdr_keys[0]['binning'] = 'BINNING'
         #hdr_keys[0]['decker'] = 'SLITNAME'
-        hdr_keys[0]['dichroic'] = 'DICHNAME'
+        #hdr_keys[0]['dichroic'] = 'DICHNAME'
 
         hdr_keys[0]['target'] = 'TARGNAME'
         hdr_keys[0]['exptime'] = 'TTIME'
@@ -90,8 +90,9 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
         hdr_keys[0]['dispangle'] = 'BGRANGLE'
         hdr_keys[0]['wavecen'] = 'BCWAVE'
         hdr_keys[0]['spectrograph'] = 'INSTRUME'
-        hdr_keys[0]['slicer'] = 'IFUNUM'
+        hdr_keys[0]['slicer'] = 'IFUNAM'
         hdr_keys[0]['stateid'] = 'STATEID'
+        hdr_keys[0]['ccdcfg'] = 'CCDCFG'
         #hdr_keys[1]['CCDGEOM'] = 'CCDGEOM'
         #hdr_keys[1]['CCDNAME01'] = 'CCDNAME'
         #hdr_keys[3]['CCDNAME02'] = 'CCDNAME'
@@ -104,8 +105,11 @@ class KeckKCWISpectrograph(spectrograph.Spectrograph):
         return hdr_keys
 
     def metadata_keys(self):
-        return super(KeckKCWISpectrograph, self).metadata_keys() \
-                    + ['binning', 'dispangle', 'stateid']
+        kcwi_metadata =  super(KeckKCWISpectrograph, self).metadata_keys() \
+                    + ['binning', 'dispangle', 'stateid', 'slicer', 'ccdcfg']
+
+        kcwi_metadata.remove('decker')
+        return kcwi_metadata
 
     def check_frame_type(self, ftype, fitstbl, exprng=None):
         """
