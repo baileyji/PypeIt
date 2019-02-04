@@ -682,6 +682,9 @@ def fit_profile(image, ivar, waveimg, trace_in, wave, flux, fluxivar,
 
 #    p_show_profile = None  # This is the process object that is passed back for show_profile mode
 
+    # EMA
+    show_profile =  False
+
     if maskwidth is None: 3.0*(np.max(thisfwhm) + 1.0)
     if prof_nsigma is not None:
         no_deriv = True

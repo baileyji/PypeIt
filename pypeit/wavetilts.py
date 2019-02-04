@@ -313,8 +313,9 @@ class WaveTilts(masterframe.MasterFrame):
             self.spat_order[slit] = self._parse_param(self.par, 'spat_order', slit)
             self.spec_order[slit] = self._parse_param(self.par, 'spec_order', slit)
             # 2D model of the tilts, includes construction of QA
+            # Ema
             coeff_out = self.fit_tilts(self.trace_dict, thismask, self.slitcen[:,slit], self.spat_order[slit],
-                                       self.spec_order[slit], slit,doqa=doqa, show_QA = show, debug=show)
+                                       self.spec_order[slit], slit,doqa=doqa, show_QA = False, debug=False)
             self.coeffs[0:self.spec_order[slit]+1, 0:self.spat_order[slit]+1 , slit] = coeff_out
             # Tilts are created with the size of the original slitmask, which corresonds to the same binning
             # as the science images, trace images, and pixelflats etc.
