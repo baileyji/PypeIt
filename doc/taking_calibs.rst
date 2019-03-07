@@ -6,9 +6,6 @@ This document describes the PypeIt-recommended way
 to take spectroscopic calibrations for instruments
 supported by this DRP.
 
-Keck
-====
-
 LRIS
 ----
 
