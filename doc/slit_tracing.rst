@@ -1,5 +1,3 @@
-.. highlight:: rest
-
 ************
 Slit Tracing
 ************
