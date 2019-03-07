@@ -21,7 +21,8 @@ Arcs
 ::::
 
 Use *all* lamps and integrate for 1s after waiting for 60s for
-the lamps to warm-up.
+the lamps to warm-up.  Afternoon exposures are fine provided
+the elevation is >= 45deg (i.e. avoid Horizon).
 
 Flats
 :::::
